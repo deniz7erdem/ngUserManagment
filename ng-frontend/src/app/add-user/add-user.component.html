@@ -1,0 +1,43 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="input-group mb-3">
+                <span class="input-group-text">Kullanıcı Adı</span>
+                <input type="text" class="form-control" [(ngModel)]="user.userNick">
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="input-group mb-3">
+                <span class="input-group-text">Ad-Soyad</span>
+                <input type="text" class="form-control" [(ngModel)]="user.userName" aria-describedby="basic-addon3">
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="input-group mb-3">
+                <span class="input-group-text">Şifre</span>
+                <input type="password" [(ngModel)]="user.userPassword" class="form-control">
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="input-group mb-3">
+                <span class="input-group-text">Rol</span>
+                <select class="form-select" [(ngModel)]="user.userAdmin">
+                    <option value="1">Yönetici</option>
+                    <option value="0" selected>Kullanıcı</option>
+                </select>
+            </div>
+        </div>
+        <hr>
+        <div class="row" style="margin-left: 50px;margin-right: 50px;">
+            <button (click)="addUser()" class="btn btn-sm btn-success">Kaydet</button>
+        </div>
+
+    </div>
+
+</div>
+<div [style.visibility]="this.resm?'visible':'hidden'" [class]="'alert-'+this.styl" class="alert" role="alert" style="margin-top: 15px;">
+    {{this.resm}}
+</div>

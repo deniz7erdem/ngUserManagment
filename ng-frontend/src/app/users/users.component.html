@@ -1,0 +1,168 @@
+<div class="bd-card3">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Kullanıcı Adı</th>
+                <th scope="col">Ad-Soyad</th>
+
+                <th *ngIf="me.userAdmin==1" scope="col">İncele</th>
+                <th *ngIf="me.userAdmin==1" scope="col">Sil</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of this.users">
+                <th scope="row">{{user.userid}}</th>
+                <td>{{user.usernick}}</td>
+                <td>{{user.username}}</td>
+
+                <td *ngIf="me.userAdmin==1"><button class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                        [attr.data-bs-target]="'#ayrinti'+user.userid">İncele</button></td>
+                <td *ngIf="me.userAdmin==1"><button (click)="delUser(user)" class="btn btn-sm btn-danger">X</button>
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+</div>
+
+
+
+<!-- ayrinti -->
+<div class="modal fade" id="ayrinti{{user.userid}}" tabindex="-1" aria-labelledby="ayriniBaslik" aria-hidden="true"
+    *ngFor="let user of this.users">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ayriniBaslik">Kullanıcı Ayrıntıları</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">ID</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-muted mb-0">#{{user.userid}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">Kullanıcı Adı</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-muted mb-0">{{user.usernick}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">Ad-Soyad</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-muted mb-0">{{user.username}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">Rol</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <p *ngIf="user.useradmin==1" class="text-muted mb-0">Yönetici</p>
+                                <p *ngIf="user.useradmin==0" class="text-muted mb-0">Kullanıcı</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                    [attr.data-bs-target]="'#duzenle'+user.userid">Düzenle</button>
+                <button type="button" (click)="getUsers()" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- //EDIT -->
+<div class="modal fade" id="duzenle{{user.userid}}" tabindex="-1" aria-labelledby="duzenleBaslik" aria-hidden="true"
+    *ngFor="let user of this.users">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="duzenleBaslik">Kullanıcı Düzenle</h1>
+
+            </div>
+            <div class="modal-body" [style.display]="this.editAlert?'block':'none'" style="margin-bottom:-35px;">
+                <div class="alert alert-success">Kullanıcı bilgileri güncellendi!</div>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">ID</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-muted mb-0">#{{user.userid}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Kullanıcı Adı</span>
+                                <input type="text" class="form-control" value="{{user.usernick}}" #euserNick>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Ad-Soyad</span>
+                                <input type="text" class="form-control" value="{{user.username}}" #euserName>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Şifre</span>
+                                <div class="input-group-text">
+                                    <input [checked]="!pw" (change)="pw = !pw" 
+                                        class="form-check-input mt-0" type="checkbox">
+                                </div>
+                                <input [disabled]="pw" type="password" class="form-control" #euserPassword>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Rol</span>
+                                <select class="form-select" #euserAdmin>
+                                    <option value="1" [attr.selected]="user.useradmin==1">Yönetici</option>
+                                    <option value="0" [attr.selected]="user.useradmin==0">Kullanıcı</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" (click)="updateUser(user,euserNick,euserName,euserPassword,euserAdmin)"
+                    class="btn btn-success">Kaydet</button>
+                <button type="button" (click)="getUsers()" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal"
+                    [attr.data-bs-target]="'#ayrinti'+user.userid">Geri</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>

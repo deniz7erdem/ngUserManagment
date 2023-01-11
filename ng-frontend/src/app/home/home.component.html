@@ -1,0 +1,63 @@
+<app-nav></app-nav>
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-8">
+            <h3>Kullanıcı Listesi</h3>
+        </div>
+        <div class="col-md-4">
+            <h3 *ngIf="this.me.userAdmin==1">Kullanıcı Ekle</h3>
+            <h3 *ngIf="this.me.userAdmin==0">Profiliniz</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+
+            <app-users></app-users>
+        </div>
+
+        <div class="col-md-4">
+            <app-add-user *ngIf="this.me.userAdmin==1"></app-add-user>
+            <div class="card" *ngIf="this.me.userAdmin==0">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <p class="mb-0">ID</p>
+                        </div>
+                        <div class="col-sm-8">
+                            <p class="text-muted mb-0">#{{me.userID}}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <p class="mb-0">Kullanıcı Adı</p>
+                        </div>
+                        <div class="col-sm-8">
+                            <p class="text-muted mb-0">{{me.userNick}}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <p class="mb-0">Ad-Soyad</p>
+                        </div>
+                        <div class="col-sm-8">
+                            <p class="text-muted mb-0">{{me.userName}}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <p class="mb-0">Rol</p>
+                        </div>
+                        <div class="col-sm-8">
+                            <p *ngIf="me.userAdmin==1" class="text-muted mb-0">Yönetici</p>
+                            <p *ngIf="me.userAdmin==0" class="text-muted mb-0">Kullanıcı</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
