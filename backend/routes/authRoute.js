@@ -52,7 +52,7 @@ router.route('/addUser').post(authMiddleware, async (req, res) => {
         let user = req.body;
         const nick = await postgres.query(`SELECT * FROM users WHERE usernick = $1`, [user.userNick]);
         if (nick.rows[0]) {
-            res.json({ "mesaj": "Kullanıcı adı kullanılıyor","hata":true });
+            res.json({ "mesaj": "Kullanıcı adı kullanılıyor", "hata": true });
             return;
         }
         await bcrypt.genSalt(10).then(salt => {
@@ -89,13 +89,18 @@ router.route('/updateUser').post(authMiddleware, async (req, res) => {
         return;
     }
     try {
-        var sql = `SELECT * FROM users WHERE usernick = $1`;
-        const valresql = await postgres.query(sql, [req.body.userNick]);
-        if(valresql.rows[0].usernick!=req.body.userNick){
-            res.json({"mesaj":"Kullanıcı adı kullanılıyor"});
-            return
+        console.log(req.body);
+        if (req.body.oldUserNick!=req.body.userNick) {
+            var valsql = `SELECT * FROM users WHERE usernick = $1`;
+            const valresql = await postgres.query(valsql, [req.body.userNick]);
+            console.log(valresql.rows[0].usernick + "  @@@@@@@@  " + req.body.userNick);
+            if (valresql.rows[0]) {
+                    res.json({ "mesaj": "Kullanıcı adı kullanılıyor" });
+                    return;
+                
+            }
         }
-
+        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         var sql = `SELECT * FROM users WHERE usernick = $1`;
         const resql = await postgres.query(sql, [req.body.oldUserNick]);
         const user = req.body;
@@ -117,7 +122,7 @@ router.route('/updateUser').post(authMiddleware, async (req, res) => {
             const resql = await postgres.query(sql, values);
             res.status(200).json({ "mesaj": "Kullanıcı başarılıyla düzenlendi!", "user": user });
         } else {
-            res.status(400).json({ "hata": "Kullanıcı bulunamadı" });
+            res.json({ "hata": "Kullanıcı bulunamadı" });
         }
     } catch (error) {
         console.log(error);
@@ -144,7 +149,7 @@ router.route('/delUser').post(authMiddleware, async (req, res) => {
             const resql = await postgres.query(sql, values);
             res.status(200).json({ "mesaj": "Kullanıcı başarılıyla silindi!" });
         } else {
-            res.status(400).json({ "mesaj": "Kullanıcı bulunamadı" });
+            res.json({ "mesaj": "Kullanıcı bulunamadı" });
         }
     } catch (error) {
         console.log(error);
