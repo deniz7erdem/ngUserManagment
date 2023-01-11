@@ -8,11 +8,7 @@
             <div class="col-md-9 col-lg-8 mx-auto">
               <h2 class="login-heading mb-4">Kullanıcı Yönetim Sistemi</h2>
               <h3 class="login-heading mb-4">Hoş geldin!</h3>
-
-              <!-- Sign In Form -->
-
               <div class="form-floating mb-3">
-
                 <input type="text" class="form-control" id="userNick" placeholder="KullanıcıAdı"
                   [(ngModel)]="user.userNick">
                 <label for="userNick">Kullanıcı Adı</label>
@@ -22,7 +18,6 @@
                   [(ngModel)]="user.userPassword">
                 <label for="userPassword">Şifre</label>
               </div>
-
               <div class="d-grid">
                 <button (click)="login()" class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2">Giriş
                   Yap</button>
@@ -30,7 +25,6 @@
               <div [style.visibility]="this.err?'visible':'hidden'" class="alert alert-danger" role="alert">
                 {{res}}
               </div>
-
             </div>
           </div>
         </div>

@@ -1,5 +1,4 @@
 <app-nav></app-nav>
-
 <div class="container mt-3">
     <div class="row">
         <div class="col-md-8">
@@ -12,10 +11,8 @@
     </div>
     <div class="row">
         <div class="col-md-8">
-
             <app-users></app-users>
         </div>
-
         <div class="col-md-4">
             <app-add-user *ngIf="this.me.userAdmin==1"></app-add-user>
             <div class="card" *ngIf="this.me.userAdmin==0">
@@ -52,8 +49,7 @@
                             <p class="mb-0">Rol</p>
                         </div>
                         <div class="col-sm-8">
-                            <p *ngIf="me.userAdmin==1" class="text-muted mb-0">Yönetici</p>
-                            <p *ngIf="me.userAdmin==0" class="text-muted mb-0">Kullanıcı</p>
+                            <p class="text-muted mb-0">{{me.userAdmin==1?'Yönetici':'Kullanıcı'}}</p>
                         </div>
                     </div>
                 </div>

@@ -5,7 +5,6 @@
                 <th scope="col">#</th>
                 <th scope="col">Kullanıcı Adı</th>
                 <th scope="col">Ad-Soyad</th>
-
                 <th *ngIf="me.userAdmin==1" scope="col">İncele</th>
                 <th *ngIf="me.userAdmin==1" scope="col">Sil</th>
             </tr>
@@ -15,21 +14,15 @@
                 <th scope="row">{{user.userid}}</th>
                 <td>{{user.usernick}}</td>
                 <td>{{user.username}}</td>
-
                 <td *ngIf="me.userAdmin==1"><button class="btn btn-sm btn-primary" data-bs-toggle="modal"
                         [attr.data-bs-target]="'#ayrinti'+user.userid">İncele</button></td>
                 <td *ngIf="me.userAdmin==1"><button (click)="delUser(user)" class="btn btn-sm btn-danger">X</button>
                 </td>
             </tr>
-
         </tbody>
-
     </table>
 </div>
-
-
-
-<!-- ayrinti -->
+<!-- //DETAIL -->
 <div class="modal fade" id="ayrinti{{user.userid}}" tabindex="-1" aria-labelledby="ayriniBaslik" aria-hidden="true"
     *ngFor="let user of this.users">
     <div class="modal-dialog modal-dialog-centered">
@@ -73,36 +66,31 @@
                                 <p class="mb-0">Rol</p>
                             </div>
                             <div class="col-sm-8">
-                                <p *ngIf="user.useradmin==1" class="text-muted mb-0">Yönetici</p>
-                                <p *ngIf="user.useradmin==0" class="text-muted mb-0">Kullanıcı</p>
+                                <p class="text-muted mb-0">{{user.userAdmin==1?'Yönetici':'Kullanıcı'}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                    [attr.data-bs-target]="'#duzenle'+user.userid">Düzenle</button>
-                <button type="button" (click)="getUsers()" class="btn btn-secondary"
-                    data-bs-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" [attr.data-bs-target]="'#duzenle'+user.userid">Düzenle</button>
+                <button type="button" (click)="getUsers()" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
             </div>
         </div>
     </div>
 </div>
-
-
 <!-- //EDIT -->
 <div class="modal fade" id="duzenle{{user.userid}}" tabindex="-1" aria-labelledby="duzenleBaslik" aria-hidden="true"
     *ngFor="let user of this.users">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="duzenleBaslik">Kullanıcı Düzenle</h1>
-
             </div>
-            <div class="modal-body" [style.display]="this.editAlert.visible?'block':'none'" style="margin-bottom:-35px;">
-                <div [class]="this.editAlert.error==0?'alert-success':'alert-danger'" class="alert alert-success">{{this.editAlert.mesaj}}</div>
+            <div class="modal-body" [style.display]="this.editAlert.visible?'block':'none'"
+                style="margin-bottom:-35px;">
+                <div [class]="this.editAlert.error==0?'alert-success':'alert-danger'" class="alert alert-success">
+                    {{this.editAlert.mesaj}}</div>
             </div>
             <div class="modal-body">
                 <div class="card">
@@ -134,8 +122,7 @@
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Şifre</span>
                                 <div class="input-group-text">
-                                    <input [checked]="!pw" (change)="pw = !pw" 
-                                        class="form-check-input mt-0" type="checkbox">
+                                    <input [checked]="!pw" (change)="pw = !pw" class="form-check-input mt-0" type="checkbox">
                                 </div>
                                 <input [disabled]="pw" type="password" class="form-control" #euserPassword>
                             </div>
@@ -152,17 +139,11 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
-
-                <button type="button" (click)="updateUser(user,euserNick,euserName,euserPassword,euserAdmin)"
-                    class="btn btn-success">Kaydet</button>
-                <button type="button" (click)="getUsers()" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal"
-                    [attr.data-bs-target]="'#ayrinti'+user.userid">Geri</button>
-
+                <button type="button" (click)="updateUser(user,euserNick,euserName,euserPassword,euserAdmin)" class="btn btn-success">Kaydet</button>
+                <button type="button" (click)="getUsers()" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="'#ayrinti'+user.userid">Geri</button>
             </div>
-
         </div>
     </div>
 </div>
