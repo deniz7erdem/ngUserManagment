@@ -1,5 +1,5 @@
 CREATE TABLE public.users (
-    userid integer NOT NULL,
+    userid SERIAL,
     username text NOT NULL,
     usernick text NOT NULL,
     userpassword text NOT NULL,
