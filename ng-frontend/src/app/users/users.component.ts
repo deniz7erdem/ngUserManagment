@@ -64,5 +64,7 @@ export class UsersComponent {
         mesaj:res.mesaj
       };
     });
+
+    //this.getUsers();
   }
 }
