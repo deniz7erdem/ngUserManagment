@@ -10,9 +10,9 @@ Angular, ExpessJS ve PostgreSQL kullanılarak geliştirilmiş mini kullanıcı y
 - Bcrypt
 
 ## Kurulum
-`user.sql` dosyasını pgAdminde 'userManagementDB' ismindeki databese'e query tool yardımı ile yazılabilir. Database adı, kullanıcı adı ve şifresi gibi bilgileri `/backend/db.js` dosyasından değiştirilebilirsiniz.
+`user.sql` dosyasını pgAdminde 'userManagementDB' ismindeki database'e query tool yardımı ile yazılabilir. Database adı, kullanıcı adı ve şifresi gibi bilgileri `/backend/db.js` dosyasından değiştirebilirsiniz.
 
-Akabinde sırasıyla `backend` ve `renault` klasörleri içinde `npm install` komutu çalıştırılmalı.
+Akabinde sırasıyla `backend` ve `ng-frontend` klasörleri içinde `npm install` komutu çalıştırılmalı.
 
 Gerekli npm modülleri indirildikten sonra 2 klasörde de `npm start` komutu ile projeyi çalışır duruma getirebilirsiniz.
 
