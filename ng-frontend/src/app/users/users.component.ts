@@ -12,7 +12,11 @@ export class UsersComponent {
   constructor(private AuthService: AuthService) { }
   me: any;
   users: any;
-  editAlert = false;
+  editAlert = {
+    visible:false,
+    error:0,
+    mesaj:""
+  };
   pw = true;
   ngOnInit() {
     this.getUsers();
@@ -53,7 +57,12 @@ export class UsersComponent {
     }
     
     this.AuthService.updateUser(user).subscribe((res: any) => {
-      this.editAlert = true;
+
+      this.editAlert = {
+        visible:true,
+        error:(res.mesaj=="Kullanıcı adı kullanılıyor")?1:0,
+        mesaj:res.mesaj
+      };
     });
   }
 }

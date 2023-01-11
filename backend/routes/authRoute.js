@@ -90,6 +90,13 @@ router.route('/updateUser').post(authMiddleware, async (req, res) => {
     }
     try {
         var sql = `SELECT * FROM users WHERE usernick = $1`;
+        const valresql = await postgres.query(sql, [req.body.userNick]);
+        if(valresql.rows[0]){
+            res.json({"mesaj":"Kullanıcı adı kullanılıyor"});
+            return
+        }
+
+        var sql = `SELECT * FROM users WHERE usernick = $1`;
         const resql = await postgres.query(sql, [req.body.oldUserNick]);
         const user = req.body;
         const sqlUser = resql.rows[0];

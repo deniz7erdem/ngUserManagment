@@ -101,8 +101,8 @@
                 <h1 class="modal-title fs-5" id="duzenleBaslik">Kullanıcı Düzenle</h1>
 
             </div>
-            <div class="modal-body" [style.display]="this.editAlert?'block':'none'" style="margin-bottom:-35px;">
-                <div class="alert alert-success">Kullanıcı bilgileri güncellendi!</div>
+            <div class="modal-body" [style.display]="this.editAlert.visible?'block':'none'" style="margin-bottom:-35px;">
+                <div [class]="this.editAlert.error==0?'alert-success':'alert-danger'" class="alert alert-success">{{this.editAlert.mesaj}}</div>
             </div>
             <div class="modal-body">
                 <div class="card">
