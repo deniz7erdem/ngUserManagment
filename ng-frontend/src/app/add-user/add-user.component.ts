@@ -26,6 +26,12 @@ export class AddUserComponent {
       this.styl = 'success'
       this.HomeComponent.getUsers();
       this.resm = res.mesaj;
+      this.user = {
+        userNick: "",
+        userName: "",
+        userPassword: "",
+        userAdmin: 0
+      };
     })
   }
 }
